@@ -1,3 +1,4 @@
+import 'package:firebase_auth_login/helper/login_background.dart';
 import 'package:flutter/material.dart';
 
 class AuthPage extends StatelessWidget {
@@ -11,13 +12,12 @@ class AuthPage extends StatelessWidget {
     //mediaquery라는 라이브러리를 써서 앱을 사용하는 핸드폰의 화면 크기를 가져옴 final로 한 번 받아오고 변경 불가 상태로 만듦
 
     return Scaffold(
-
-      appBar: AppBar(title: Text("Firebase Login")),
       body: Stack(
         alignment: Alignment.center, // 정렬
         children: <Widget>[
-          Container(
-            color: Colors.white,
+          CustomPaint(
+            size:size,
+            painter: LoginBackground(),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.center, // 정렬
@@ -52,7 +52,8 @@ Widget get _logoImage =>Expanded(   //남는 공간을 child가 다 차지 하�
         fit: BoxFit.contain,
         child: CircleAvatar(
           backgroundImage: NetworkImage(
-              "https://picsum.photos/200"),
+              "https://i3.wp.com/i.gifer.com/7pv.gif"
+          ),
         ),
       ),
     ),
