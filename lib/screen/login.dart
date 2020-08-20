@@ -11,6 +11,7 @@ class AuthPage extends StatelessWidget {
     //mediaquery라는 라이브러리를 써서 앱을 사용하는 핸드폰의 화면 크기를 가져옴 final로 한 번 받아오고 변경 불가 상태로 만듦
 
     return Scaffold(
+
       appBar: AppBar(title: Text("Firebase Login")),
       body: Stack(
         alignment: Alignment.center, // 정렬
@@ -22,20 +23,17 @@ class AuthPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center, // 정렬
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              Container(
-                width: 200,
-                height: 200,
-                color: Colors.blue,
-              ), //gif가 들어갈 공간
+              _logoImage,
+
               Stack(
                 children: <Widget>[
                   _inputForm(size), //input form이 될 공간
                   _authButton(size),
-                  ],
+                ],
               ),
 
               Container(
-                height: size.height * 0.10,
+                height: size.height * 0.1,
               ),
               Text("Don't Have an Account? Create One"),
               Container(
@@ -47,9 +45,21 @@ class AuthPage extends StatelessWidget {
       ),
     );
   }
+Widget get _logoImage =>Expanded(   //남는 공간을 child가 다 차지 하도록
+    child: Padding(
+      padding: const EdgeInsets.only(top:40,left:24,right:24),
+      child: FittedBox(
+        fit: BoxFit.contain,
+        child: CircleAvatar(
+          backgroundImage: NetworkImage(
+              "https://picsum.photos/200"),
+        ),
+      ),
+    ),
+  ); //gif가 들어갈 공간
 
   Widget _inputForm(Size size) {
-   return Padding(
+    return Padding(
       padding: EdgeInsets.all(size.width * 0.05), //패딩 추가
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -77,6 +87,7 @@ class AuthPage extends StatelessWidget {
                 ),
                 // animation이 자동으로 생김
                 TextFormField(
+                  obscureText: true,
                     controller: _pwController,
                     decoration: InputDecoration(
                         icon: Icon(Icons.vpn_key), labelText: "Password"),
@@ -86,7 +97,7 @@ class AuthPage extends StatelessWidget {
                       }
                       return null;
                     }),
-                Container(height: 10),
+                Container(height: 5),
                 Text("Forgot Password?"),
               ],
             ),
@@ -95,20 +106,26 @@ class AuthPage extends StatelessWidget {
       ),
     );
   }
-  Widget _authButton(Size size){
-    return Positioned(
-      left:size.width * 0.1,
-      right:size.width * 0.1,
-      bottom: 0,
-      child: RaisedButton(
-          child: Text("Login"),
-          color:Colors.blue,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15)),
-          onPressed: (){
 
-          }
+  Widget _authButton(Size size) {
+    return Positioned(
+      left: size.width * 0.1,
+      right: size.width * 0.1,
+      bottom: 0,
+      child: SizedBox(
+        height : 48,
+
+        child: RaisedButton(
+            child: Text("Login",style: TextStyle(fontSize: 20,color:Colors.white),),
+            color: Colors.blue,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+            onPressed: () {
+              if(_formKey.currentState.validate()){ //validator 실행해서 맞지 않으면 error 출력
+                print(_emailController.value.toString());
+              }
+            }),
       ),
-    );//버튼이 될 공간
+    ); //버튼이 될 공간
   }
 }
