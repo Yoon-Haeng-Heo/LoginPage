@@ -29,60 +29,9 @@ class AuthPage extends StatelessWidget {
               ), //gif가 들어갈 공간
               Stack(
                 children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(size.width * 0.05), //패딩 추가
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16)),
-                      elevation: 8, //그림자 추가
-                      child: Form(
-                        key: _formKey, //unique한 id라고 생각하면 될 듯
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                              left: 12.0, right: 12.0, top: 12.0, bottom: 36.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            //정렬 왼쪽으로
-                            children: <Widget>[
-                              TextFormField(
-                                controller: _emailController,
-                                decoration: InputDecoration(
-                                    icon: Icon(Icons.account_circle),
-                                    labelText: "Email"),
-                                validator: (String value) {
-                                  //user가 뭔가 작성을 하면 value가 맞는 데이터인지 체크해주는 것
-                                  if (value.isEmpty) {
-                                    return "Please input correct Email"; // error message
-                                  }
-                                  return null;
-                                },
-                              ),
-                              // animation이 자동으로 생김
-                              TextFormField(
-                                  controller: _pwController,
-                                  decoration: InputDecoration(
-                                      icon: Icon(Icons.vpn_key),
-                                      labelText: "Password"),
-                                  validator: (String value) {
-                                    if (value.isEmpty) {
-                                      return "Please input correct Password"; // error message
-                                    }
-                                    return null;
-                                  }),
-                              Container(height: 10),
-                              Text("Forgot Password?"),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ), //input form이 될 공간
-//                  Container(
-//                    width: 100,
-//                    height: 100,
-//                    color: Colors.purple,
-//                  ),//버튼이 될 공간
-                ],
+                  _inputForm(size), //input form이 될 공간
+                  _authButton(size),
+                  ],
               ),
 
               Container(
@@ -97,5 +46,69 @@ class AuthPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget _inputForm(Size size) {
+   return Padding(
+      padding: EdgeInsets.all(size.width * 0.05), //패딩 추가
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        elevation: 8, //그림자 추가
+        child: Form(
+          key: _formKey, //unique한 id라고 생각하면 될 듯
+          child: Padding(
+            padding: EdgeInsets.only(
+                left: 12.0, right: 12.0, top: 12.0, bottom: 36.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              //정렬 왼쪽으로
+              children: <Widget>[
+                TextFormField(
+                  controller: _emailController,
+                  decoration: InputDecoration(
+                      icon: Icon(Icons.account_circle), labelText: "Email"),
+                  validator: (String value) {
+                    //user가 뭔가 작성을 하면 value가 맞는 데이터인지 체크해주는 것
+                    if (value.isEmpty) {
+                      return "Please input correct Email"; // error message
+                    }
+                    return null;
+                  },
+                ),
+                // animation이 자동으로 생김
+                TextFormField(
+                    controller: _pwController,
+                    decoration: InputDecoration(
+                        icon: Icon(Icons.vpn_key), labelText: "Password"),
+                    validator: (String value) {
+                      if (value.isEmpty) {
+                        return "Please input correct Password"; // error message
+                      }
+                      return null;
+                    }),
+                Container(height: 10),
+                Text("Forgot Password?"),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+  Widget _authButton(Size size){
+    return Positioned(
+      left:size.width * 0.1,
+      right:size.width * 0.1,
+      bottom: 0,
+      child: RaisedButton(
+          child: Text("Login"),
+          color:Colors.blue,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15)),
+          onPressed: (){
+
+          }
+      ),
+    );//버튼이 될 공간
   }
 }
